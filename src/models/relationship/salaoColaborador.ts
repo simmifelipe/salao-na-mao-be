@@ -1,8 +1,8 @@
 import { Schema, model, Types } from "mongoose";
 
 type SalaoColaborador = {
-  salaoId: string;
-  colaboradorId: string;
+  salaoId: any;
+  colaboradorId: any;
   status: string;
   dataCadastro: Date;
 }

@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose from "mongoose";
+import { connection } from "mongoose";
 
 const router = express.Router();
 import pagarme from "../services/pagarme";
@@ -9,7 +9,7 @@ import SalaoColaboradorModel from "../models/relationship/salaoColaborador";
 import ColaboradorServicoModel from "../models/relationship/colaboradorServico";
 
 router.post("/", async (req, res) => {
-  const db = mongoose.connection;
+  const db = connection;
   const session = await db.startSession();
   session.startTransaction();
 
@@ -186,13 +186,13 @@ router.get("/salao/:salaoId", async (req, res) => {
     }).populate({ path: "colaboradorId", select: "-senha -recipientId" });
 
     for (let vinculo of salaoColaboradores) {
-      const especialidades = await ColaboradorServicoModel.find({
+      const especialidades: any = await ColaboradorServicoModel.find({
         colaboradorId: vinculo.colaboradorId._id,
       });
 
       listaColaboradores.push({
         ...vinculo._doc,
-        especialidades,
+        especialidades: especialidades.map(especialidade => especialidade.servicoId),
       });
     }
 

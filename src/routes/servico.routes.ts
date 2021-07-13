@@ -21,9 +21,8 @@ router.post("/", async (req: any, res: any) => {
           const file = req.files[key];
 
           const nameParts = file.name.split(".");
-          const fileName = `${new Date().getTime()}.${
-            nameParts[nameParts.length - 1]
-          }`;
+          const fileName = `${new Date().getTime()}.${nameParts[nameParts.length - 1]
+            }`;
           const path = `servicos/${salaoId}/${fileName}`;
 
           const response: any = await uploadToS3(file, path);
@@ -76,9 +75,8 @@ router.put("/:id", async (req: any, res: any) => {
           const file = req.files[key];
 
           const nameParts = file.name.split(".");
-          const fileName = `${new Date().getTime()}.${
-            nameParts[nameParts.length - 1]
-          }`;
+          const fileName = `${new Date().getTime()}.${nameParts[nameParts.length - 1]
+            }`;
           const path = `servicos/${salaoId}/${fileName}`;
 
           const response: any = await uploadToS3(file, path);
@@ -140,14 +138,14 @@ router.get("/salao/:salaoId", async (req, res) => {
   }
 });
 
-router.post("/delete-arquivo", async (req, res) => {
+router.delete("/delete-arquivo/:key", async (req, res) => {
   try {
-    const { id } = req.body;
+    const { key } = req.params;
 
-    await deleteFileS3(id);
+    await deleteFileS3(key);
 
     await ArquivoModel.findOneAndDelete({
-      caminho: id,
+      caminho: key,
     });
 
     res.json({ error: false });

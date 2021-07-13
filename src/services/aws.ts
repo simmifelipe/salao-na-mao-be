@@ -14,7 +14,7 @@ export function uploadToS3(file, filename, acl = "public-read") {
     let s3bucket = new S3({
       accessKeyId: IAM_USER_KEY,
       secretAccessKey: IAM_USER_SECRET,
-      s3BucketEndpoint: BUCKET_NAME,
+      BucketName: BUCKET_NAME,
     });
 
     s3bucket.createBucket(function () {
@@ -46,7 +46,7 @@ export function deleteFileS3(key) {
     let s3bucket = new S3({
       accessKeyId: IAM_USER_KEY,
       secretAccessKey: IAM_USER_SECRET,
-      s3BucketEndpoint: BUCKET_NAME
+      BucketName: BUCKET_NAME,
     });
 
     s3bucket.createBucket(function () {
