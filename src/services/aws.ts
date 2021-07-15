@@ -1,7 +1,7 @@
 import { S3 } from "aws-sdk";
 
-export const IAM_USER_KEY = "";
-export const IAM_USER_SECRET = "";
+export const IAM_USER_KEY = process.env.IAM_USER_KEY;
+export const IAM_USER_SECRET = process.env.IAM_USER_SECRET;
 export const BUCKET_NAME = "fb-salao-na-mao";
 export const AWS_REGION = "us-east-1";
 
