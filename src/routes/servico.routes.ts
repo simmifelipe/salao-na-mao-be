@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import Busboy from "busboy";
 
-import { uploadToS3, deleteFileS3 } from "../services/aws";
+import {deleteFileS3, uploadToS3} from "../services/aws";
 import ServicoModel from "../models/servico";
 import ArquivoModel from "../models/arquivo";
 
@@ -21,8 +21,9 @@ router.post("/", async (req: any, res: any) => {
           const file = req.files[key];
 
           const nameParts = file.name.split(".");
-          const fileName = `${new Date().getTime()}.${nameParts[nameParts.length - 1]
-            }`;
+          const fileName = `${new Date().getTime()}.${
+            nameParts[nameParts.length - 1]
+          }`;
           const path = `servicos/${salaoId}/${fileName}`;
 
           const response: any = await uploadToS3(file, path);
@@ -75,8 +76,9 @@ router.put("/:id", async (req: any, res: any) => {
           const file = req.files[key];
 
           const nameParts = file.name.split(".");
-          const fileName = `${new Date().getTime()}.${nameParts[nameParts.length - 1]
-            }`;
+          const fileName = `${new Date().getTime()}.${
+            nameParts[nameParts.length - 1]
+          }`;
           const path = `servicos/${salaoId}/${fileName}`;
 
           const response: any = await uploadToS3(file, path);
@@ -138,9 +140,9 @@ router.get("/salao/:salaoId", async (req, res) => {
   }
 });
 
-router.delete("/delete-arquivo/:key", async (req, res) => {
+router.post("/delete-arquivo", async (req, res) => {
   try {
-    const { key } = req.params;
+    const { key } = req.body;
 
     await deleteFileS3(key);
 
