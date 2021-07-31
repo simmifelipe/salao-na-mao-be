@@ -1,21 +1,10 @@
-import { Schema, Types, model } from "mongoose";
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-export type Servico = {
-  salaoId: string;
-  titulo: string;
-  preco: number;
-  comissao: number;
-  duracao: Date;
-  recorrencia: number;
-  descricao: string;
-  status: string;
-  dataCadastro: Date;
-};
-
-const servico = new Schema<Servico>({
+const servico = new Schema({
   salaoId: {
-    type: Types.ObjectId,
-    ref: "Salao",
+    type: mongoose.Types.ObjectId,
+    ref: 'Salao',
   },
   titulo: {
     type: String,
@@ -30,12 +19,13 @@ const servico = new Schema<Servico>({
     required: true,
   },
   duracao: {
-    type: Date,
+    type: String,
     required: true,
   },
   recorrencia: {
     type: Number,
     required: true,
+    default: 30,
   },
   descricao: {
     type: String,
@@ -43,9 +33,9 @@ const servico = new Schema<Servico>({
   },
   status: {
     type: String,
-    enum: ["A", "I", "E"],
+    enum: ['A', 'I', 'E'],
     required: true,
-    default: "A",
+    default: 'A',
   },
   dataCadastro: {
     type: Date,
@@ -53,4 +43,4 @@ const servico = new Schema<Servico>({
   },
 });
 
-export default model<Servico>("Servico", servico);
+module.exports = mongoose.model('Servico', servico);

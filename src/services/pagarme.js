@@ -1,12 +1,12 @@
-import axios from "axios";
+const axios = require('axios');
 
 const api = axios.create({
-  baseURL: "https://api.pagar.me/1",
+  baseURL: 'https://api.pagar.me/1',
 });
 
-import { api_key } from "../data/keys.json";
+const api_key = require('../data/keys.json').api_key;
 
-export default async (endpoint: string, data: any) => {
+module.exports = async (endpoint, data) => {
   try {
     const response = await api.post(endpoint, {
       api_key,
