@@ -231,11 +231,12 @@ router.post('/dias-disponiveis', async (req, res) => {
           /* VERIFICANDO OS HORÁRIOS DENTRO DO SLOT 
             QUE TENHAM A CONTINUIDADE NECESSÁRIA DO SERVIÇO
           */
-          horariosLivres = horariosLivres.map((slot) =>
-            slot.filter(
-              (horario, index) => slot.length - index >= servicoDuracaoSlots
-            )
-          );
+          // console.log(horariosLivres)
+          // horariosLivres = horariosLivres.map((slot) =>
+          //   slot.filter(
+          //     (horario, index) => slot.length >= servicoDuracaoSlots
+          //   )
+          // );
 
           // SEPARANDO 2 EM 2
           horariosLivres = _.chunk(horariosLivres, 2);
